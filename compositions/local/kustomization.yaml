@@ -3,7 +3,7 @@ kind: Kustomization
 resources:
   - base.yaml              # C-4: Namespace, RBAC, NetworkPolicy (issue #2)
   - database.yaml          # C-5: CNPG PostgreSQL Cluster (issue #5)
+  - service.yaml           # C-6: Deployment, Service, Ingress (issue #7)
 # Activated as compositions are implemented:
-#   - service.yaml         # C-6: Deployment, Service, Ingress
 #   - gitea.yaml           # C-7: Gitea Repository via provider-http
 #   - messaging.yaml       # C-8: NATS Subscription
