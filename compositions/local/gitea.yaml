@@ -1,0 +1,8 @@
+# Gitea Repository Composition — Repository + Actions Pipeline via provider-http
+# Status: STUB — implementation pending (C-7)
+#
+# This Composition will create (when gitea.enabled=true):
+#   - Gitea Repository via HTTP POST to Gitea API
+#   - Gitea Actions Pipeline (if gitea.cicd=true)
+#
+# provider: provider-http (no credentials, uses Gitea token from ExternalSecret)

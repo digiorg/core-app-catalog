@@ -1,0 +1,9 @@
+# Application Database Composition — CNPG PostgreSQL Cluster
+# Status: STUB — implementation pending (C-5)
+#
+# This Composition will create (when database.enabled=true):
+#   - CNPG Cluster: <appName>-db (via provider-kubernetes Object)
+#   - Storage sized by T-shirt size: S=1Gi, M=5Gi, L=20Gi
+#   - Connection pool sized by T-shirt size: S=5, M=20, L=50
+#
+# Depends on: C-4 (Base Composition — Namespace must exist first)

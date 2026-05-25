@@ -1,0 +1,12 @@
+# Application Base Composition — Namespace, RBAC, NetworkPolicy
+# Status: STUB — implementation pending (digiorg/core-app-catalog#2)
+#
+# This Composition will create:
+#   - Namespace: <appName>
+#   - ServiceAccount: <appName>-sa
+#   - Role: <appName>-role (read pods/logs, configmaps, secrets)
+#   - RoleBinding: <appName>-binding
+#   - NetworkPolicy: <appName>-netpol (Deny-All Ingress + Allow ingress-nginx + Allow intra-namespace)
+#
+# compositeTypeRef: platform.digiorg.io/v1alpha1 / Application
+# provider: provider-kubernetes (ProviderConfig: default)

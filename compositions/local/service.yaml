@@ -1,0 +1,10 @@
+# Application Service Composition — Deployment, Service, Ingress
+# Status: STUB — implementation pending (C-6)
+#
+# This Composition will create (for each entry in spec.services):
+#   - Deployment: <serviceName> in namespace <appName>
+#   - Service: <serviceName>-svc (ClusterIP)
+#   - Ingress: <appName>-ingress (nginx, host: <appName>.digiorg.local)
+#   - Resources sized by T-shirt: S=50m/64Mi, M=200m/256Mi, L=500m/512Mi
+#
+# Depends on: C-4 (Base Composition — Namespace must exist first)

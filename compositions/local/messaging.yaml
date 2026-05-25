@@ -1,0 +1,7 @@
+# NATS Messaging Composition — NATS Subscription
+# Status: STUB — implementation pending (C-8)
+#
+# This Composition will create (when messaging.enabled=true):
+#   - NATS consumer configuration for each subject in spec.messaging.subjects
+#
+# provider: provider-kubernetes
