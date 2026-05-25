@@ -1,9 +1,71 @@
-# Application Database Composition — CNPG PostgreSQL Cluster
-# Status: STUB — implementation pending (C-5)
-#
-# This Composition will create (when database.enabled=true):
-#   - CNPG Cluster: <appName>-db (via provider-kubernetes Object)
-#   - Storage sized by T-shirt size: S=1Gi, M=5Gi, L=20Gi
-#   - Connection pool sized by T-shirt size: S=5, M=20, L=50
-#
-# Depends on: C-4 (Base Composition — Namespace must exist first)
+apiVersion: apiextensions.crossplane.io/v1
+kind: Composition
+metadata:
+  name: application-db-local
+  labels:
+    platform.digiorg.io/target: local
+    platform.digiorg.io/component: database
+spec:
+  compositeTypeRef:
+    apiVersion: platform.digiorg.io/v1alpha1
+    kind: Application
+  resources:
+
+    # CNPG PostgreSQL Cluster
+    - name: cnpg-cluster
+      base:
+        apiVersion: kubernetes.crossplane.io/v1alpha2
+        kind: Object
+        spec:
+          forProvider:
+            manifest:
+              apiVersion: postgresql.cnpg.io/v1
+              kind: Cluster
+              metadata:
+                name: placeholder
+                namespace: placeholder
+              spec:
+                instances: 1
+                storage:
+                  size: 1Gi
+                bootstrap:
+                  initdb:
+                    database: appdb
+                    owner: appuser
+                monitoring:
+                  enablePodMonitor: false
+          providerConfigRef:
+            name: default
+      patches:
+        # Namespace = appName (created by Base Composition C-4)
+        - type: FromCompositeFieldPath
+          fromFieldPath: spec.appName
+          toFieldPath: spec.forProvider.manifest.metadata.namespace
+        # Name = <appName>-db
+        - type: FromCompositeFieldPath
+          fromFieldPath: spec.appName
+          toFieldPath: spec.forProvider.manifest.metadata.name
+          transforms:
+            - type: string
+              string:
+                fmt: "%s-db"
+        # Storage size per T-shirt size
+        - type: FromCompositeFieldPath
+          fromFieldPath: spec.size
+          toFieldPath: spec.forProvider.manifest.spec.storage.size
+          transforms:
+            - type: map
+              map:
+                S: "1Gi"
+                M: "5Gi"
+                L: "20Gi"
+        # Instances per T-shirt size (L gets 2 for HA)
+        - type: FromCompositeFieldPath
+          fromFieldPath: spec.size
+          toFieldPath: spec.forProvider.manifest.spec.instances
+          transforms:
+            - type: map
+              map:
+                S: 1
+                M: 1
+                L: 2
