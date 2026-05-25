@@ -1,0 +1,13 @@
+apiVersion: apiextensions.crossplane.io/v1alpha1
+kind: EnvironmentConfig
+metadata:
+  name: local
+  labels:
+    platform.digiorg.io/target: local
+data:
+  clusterType: local
+  registry: registry.digiorg.local
+  ingressClass: nginx
+  storageClass: standard
+  ingressDomain: digiorg.local
+  giteaURL: http://gitea.digiorg.local:8080
