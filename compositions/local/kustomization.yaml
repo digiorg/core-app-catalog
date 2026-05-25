@@ -5,5 +5,4 @@ resources:
   - database.yaml          # C-5: CNPG PostgreSQL Cluster (issue #5)
   - service.yaml           # C-6: Deployment, Service, Ingress (issue #7)
   - gitea.yaml             # C-7: Gitea Repository via provider-http (issue #9)
-# Activated as compositions are implemented:
-#   - messaging.yaml       # C-8: NATS Subscription
+  - messaging.yaml         # C-8: NATS Messaging ConfigMap (issue #11)
